@@ -18,7 +18,8 @@ import { newMessages, pullMessages, sendMessages } from '@proj-airi/server-sdk-s
 The package exports two Eventa contract sets:
 
 - `@proj-airi/server-sdk-shared/v1` keeps the Eventa `0.3.0` wire format.
-- `@proj-airi/server-sdk-shared/v2` uses Eventa `1.0.0-beta.15`.
+- `@proj-airi/server-sdk-shared/v2` uses Eventa `1.0.0-beta.15` and adds the
+  `chat:authenticate` invoke for post-connect authentication.
 
 ## License
 
