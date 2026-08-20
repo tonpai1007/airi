@@ -8,9 +8,13 @@ from mathutils import Vector
 
 
 def resolve_output_dir():
-    value = os.environ.get("AIRI_XIAOER_EDGE_OUT_DIR") or os.environ.get("AIRI_EDGE_LIGHT_OUT_DIR")
+    value = os.environ.get("AIRI_XIAOER_EDGE_OUT_DIR") or os.environ.get(
+        "AIRI_EDGE_LIGHT_OUT_DIR"
+    )
     if not value:
-        raise RuntimeError("Set AIRI_XIAOER_EDGE_OUT_DIR to the reference stage output directory.")
+        raise RuntimeError(
+            "Set AIRI_XIAOER_EDGE_OUT_DIR to the reference stage output directory."
+        )
 
     output_dir = Path(value)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -54,18 +58,24 @@ def frame_upper_body(scene):
         raise RuntimeError("No render-visible mesh objects found.")
 
     height = max_v.z - min_v.z
-    target = Vector((
-        (min_v.x + max_v.x) * 0.5,
-        (min_v.y + max_v.y) * 0.5,
-        min_v.z + height * 0.735,
-    ))
+    target = Vector(
+        (
+            (min_v.x + max_v.x) * 0.5,
+            (min_v.y + max_v.y) * 0.5,
+            min_v.z + height * 0.735,
+        )
+    )
     frame_span = height * 0.48
     camera.data.lens = 50
     camera.data.clip_start = 0.01
     camera.data.clip_end = 1000
     distance = frame_span / (2 * math.tan(camera.data.angle_y * 0.5)) * 1.05
-    camera.location = Vector((target.x, target.y, target.z + 0.02)) + Vector((0, -1, 0)) * distance
-    camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()
+    camera.location = (
+        Vector((target.x, target.y, target.z + 0.02)) + Vector((0, -1, 0)) * distance
+    )
+    camera.rotation_euler = (
+        (target - camera.location).to_track_quat("-Z", "Y").to_euler()
+    )
     scene.camera = camera
     return camera
 
@@ -82,15 +92,21 @@ def find_group_node(tree, group_name):
     return find_required_node(
         tree,
         group_name,
-        lambda node: getattr(node, "node_tree", None)
-        and node.node_tree
-        and node.node_tree.name == group_name,
+        lambda node: (
+            getattr(node, "node_tree", None)
+            and node.node_tree
+            and node.node_tree.name == group_name
+        ),
     )
 
 
 def ensure_group_output_socket(tree):
-    if not any(getattr(item, "in_out", None) == "OUTPUT" for item in tree.interface.items_tree):
-        tree.interface.new_socket(name="Image", in_out="OUTPUT", socket_type="NodeSocketColor")
+    if not any(
+        getattr(item, "in_out", None) == "OUTPUT" for item in tree.interface.items_tree
+    ):
+        tree.interface.new_socket(
+            name="Image", in_out="OUTPUT", socket_type="NodeSocketColor"
+        )
         tree.interface_update(bpy.context)
 
     output = find_required_node(
@@ -133,7 +149,10 @@ def main():
         raise RuntimeError("Scene has no compositor node group.")
 
     output, output_socket = ensure_group_output_socket(main_tree)
-    viewer = next((node for node in main_tree.nodes if node.bl_idname == "CompositorNodeViewer"), None)
+    viewer = next(
+        (node for node in main_tree.nodes if node.bl_idname == "CompositorNodeViewer"),
+        None,
+    )
     render_layers = find_required_node(
         main_tree,
         "Render Layers",

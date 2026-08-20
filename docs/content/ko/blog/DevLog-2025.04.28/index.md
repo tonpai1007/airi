@@ -127,6 +127,7 @@ from ppadb.client import Client
 mcp = FastMCP("airi-android")
 adb_client = Client()
 
+
 @mcp.tool()
 def input_swipe(x1: int, y1: int, x2: int, y2: int, duration: int = 500):
     return adb_client.input_swipe(x1, y1, x2, y2, duration)

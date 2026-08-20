@@ -33,6 +33,7 @@ from ppadb.client import Client
 mcp = FastMCP("airi-android")
 adb_client = Client()
 
+
 @mcp.resource("adb://devices")
 def get_devices():
     return adb_client.devices()
