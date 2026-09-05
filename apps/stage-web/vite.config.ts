@@ -23,6 +23,13 @@ import { LFS, SpaceCard } from 'hfup/vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+try {
+  const dotenv = await import('dotenv')
+  dotenv.config({ path: resolve(join(import.meta.dirname, '..', '.env.amadeus')) })
+} catch {
+  // dotenv optional
+}
+
 const stageUIAssetsRoot = resolve(join(import.meta.dirname, '..', '..', 'packages', 'stage-ui', 'src', 'assets'))
 const sharedCacheDir = resolve(join(import.meta.dirname, '..', '..', '.cache'))
 

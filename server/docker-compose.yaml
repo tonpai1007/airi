@@ -51,6 +51,8 @@ services:
       AUTH_SERVER_URL: http://localhost:6112
       DATABASE_URL: postgres://postgres:example-PAssw0rd-xHjDYR.b7N@db:5432/postgres
       REDIS_URL: redis://redis:6379
+      AMADEUS_BRAIN_URL: http://host.docker.internal:8000
+      AMADEUS_WS_URL: ws://host.docker.internal:8000/ws/amadeus
     healthcheck:
       test: ['CMD-SHELL', 'wget -qO- http://localhost:3000/readyz >/dev/null']
       interval: 10s

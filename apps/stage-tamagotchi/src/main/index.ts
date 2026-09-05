@@ -34,6 +34,7 @@ import { setupBuiltInServer } from './services/airi/http-server'
 import { setupMcpStdioManager } from './services/airi/mcp-servers'
 import { setupExtensionHost } from './services/airi/plugins'
 import { setupArtistryBridge } from './services/airi/widgets/artistry-bridge'
+import { setupAmadeusBridge } from './services/amadeus'
 import { setupAutoUpdater } from './services/electron/auto-updater'
 import { setupGlobalShortcutService } from './services/electron/global-shortcut'
 import { setupMediaPermissionHandlers } from './services/electron/media-permissions'
@@ -270,6 +271,13 @@ app.whenReady().then(async () => {
         context,
         artistryConfig: deps.artistryConfig,
       })
+    },
+  })
+
+  injeca.invoke({
+    dependsOn: { ipcMain },
+    callback: async ({ ipcMain }) => {
+      setupAmadeusBridge()
     },
   })
 

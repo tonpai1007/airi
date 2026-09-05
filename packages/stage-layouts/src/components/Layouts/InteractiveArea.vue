@@ -2,6 +2,7 @@
 import type { ChatHistoryItem } from '@proj-airi/stage-ui/types/chat'
 
 import { ChatHistory } from '@proj-airi/stage-ui/components'
+import { AmadeusStatusIndicator } from '@proj-airi/stage-ui/components/amadeus'
 import { useAnalytics } from '@proj-airi/stage-ui/composables/use-analytics'
 import { useChatStore } from '@proj-airi/stage-ui/stores/chat'
 import { useChatSessionStore } from '@proj-airi/stage-ui/stores/chat/session-store'
@@ -13,6 +14,11 @@ import { computed, ref } from 'vue'
 
 import ChatActionButtons from '../Widgets/ChatActionButtons.vue'
 import ChatArea from '../Widgets/ChatArea.vue'
+import AmadeusChatPanel from '../Widgets/AmadeusChatPanel.vue'
+import AmadeusSidebar from '../Widgets/AmadeusSidebar.vue'
+import AmadeusToast from '../Widgets/AmadeusToast.vue'
+import MemoryTimeline from '../Widgets/MemoryTimeline.vue'
+import CommitteeOrbs from '../Widgets/CommitteeOrbs.vue'
 import ChatContainer from '../Widgets/ChatContainer.vue'
 
 import { useChatToolCallRerun } from '../../composables/useChatToolCallRerun'
@@ -51,6 +57,9 @@ async function handleDeleteMessage(index: number) {
 
 <template>
   <div flex="col" items-center pt-4>
+    <div class="flex justify-between items-center px-2 w-full">
+      <AmadeusStatusIndicator />
+    </div>
     <div h-full max-h="[85vh]" w-full py="4">
       <ChatContainer>
         <div
@@ -74,7 +83,13 @@ async function handleDeleteMessage(index: number) {
           />
         </div>
         <ChatArea />
+        <AmadeusChatPanel />
+        <AmadeusSidebar />
+        <MemoryTimeline />
       </ChatContainer>
+      <AmadeusToast />
+      <CommitteeOrbs />
+      <CommitteeOrbs />
     </div>
 
     <ChatActionButtons />

@@ -47,3 +47,8 @@ export function exposeWithCustomAPI<CustomAPI>(customAPI: CustomAPI) {
     (window as ElectronWindow<CustomAPI>).api = customAPI
   }
 }
+
+export interface AmadeusElectronAPI {
+  showNotification: (payload: { title: string; body: string; priority?: string; onClick?: string }) => Promise<{ shown: boolean }>
+  getAppStatus: () => Promise<{ isOnline: boolean; platform: string; version: string }>
+}

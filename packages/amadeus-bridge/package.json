@@ -1,0 +1,35 @@
+{
+  "name": "@proj-airi/amadeus-bridge",
+  "type": "module",
+  "version": "0.11.3",
+  "private": true,
+  "description": "Bridge between Project AIRI frontend and AMADEUS Brain backend",
+  "author": {
+    "name": "Moeru AI Project AIRI Team",
+    "email": "airi@moeru.ai",
+    "url": "https://github.com/moeru-ai"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moeru-ai/airi.git",
+    "directory": "packages/amadeus-bridge"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts",
+    "./types": "./src/types.ts"
+  },
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@moeru/eventa": "catalog:",
+    "@moeru/std": "catalog:"
+  },
+  "devDependencies": {
+    "vitest": "catalog:vitest"
+  }
+}
